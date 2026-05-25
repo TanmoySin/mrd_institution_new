@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { ChevronDown, Search } from "lucide-react";
+import { useState, useId, type JSX } from "react";
+import { ChevronDown, Search, SearchX } from "lucide-react";
 import { siteData } from "../../config/data";
 import type { FAQCategory } from "../../config/data";
 
-export default function FAQ() {
-  const [search, setSearch] = useState("");
+export default function FAQ(): JSX.Element {
+  const [search, setSearch] = useState<string>("");
   const [activeCat, setActiveCat] = useState<FAQCategory | "All">("All");
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const baseId = useId();
 
   const categories: (FAQCategory | "All")[] = [
     "All",
@@ -16,7 +17,7 @@ export default function FAQ() {
     "Infrastructure",
   ];
 
-  const filtered = siteData.faqs.filter((faq) => {
+  const filteredFaqs = siteData.faqs.filter((faq) => {
     const matchCat = activeCat === "All" || faq.category === activeCat;
     const matchSearch =
       faq.question.toLowerCase().includes(search.toLowerCase()) ||
@@ -27,23 +28,26 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-32 bg-surface border-t border-border-subtle px-6 relative z-10"
+      className="py-32 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 relative z-10 selection:bg-blue-500/30"
     >
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16 animate-slide-up">
-          <span className="text-xs font-bold uppercase tracking-widest text-info bg-info/10 px-3 py-1 rounded-full mb-4">
+        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-4 py-1.5 rounded-full mb-4 inline-block">
             Information Center
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-primary mt-4 mb-4">
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-4 mb-4">
             Support Desk
           </h2>
-          <p className="text-primary-light font-medium">
+          <p className="text-slate-600 dark:text-slate-400 font-medium">
             Find instant answers to operational and academic queries.
           </p>
         </div>
 
-        <div className="relative mb-10">
-          <Search className="absolute left-5 top-4 w-5 h-5 text-primary-light" />
+        <div className="relative mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100 ease-out fill-mode-both">
+          <Search
+            className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-slate-500 pointer-events-none"
+            aria-hidden="true"
+          />
           <input
             type="text"
             value={search}
@@ -51,23 +55,30 @@ export default function FAQ() {
               setSearch(e.target.value);
               setOpenIdx(null);
             }}
+            aria-label="Search FAQs"
             placeholder="Search operational queries..."
-            className="w-full bg-canvas border border-border-subtle rounded-2xl pl-14 pr-6 py-4 text-sm font-bold text-primary outline-none focus:border-info focus:ring-1 focus:ring-info transition-all shadow-inner"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl pl-14 pr-6 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-inner placeholder:text-slate-400 dark:placeholder:text-slate-500"
           />
         </div>
 
-        <div className="flex flex-wrap gap-2 justify-center mb-12">
+        <div
+          className="flex flex-wrap gap-2.5 justify-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200 ease-out fill-mode-both"
+          role="tablist"
+          aria-label="FAQ Categories"
+        >
           {categories.map((cat) => (
             <button
               key={cat}
+              role="tab"
+              aria-selected={activeCat === cat}
               onClick={() => {
                 setActiveCat(cat);
                 setOpenIdx(null);
               }}
-              className={`text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-xl border transition-all ${
+              className={`text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-xl border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                 activeCat === cat
-                  ? "bg-primary border-primary text-surface shadow-card scale-105"
-                  : "bg-canvas border-border-subtle text-primary-light hover:border-primary-light hover:text-primary"
+                  ? "bg-slate-900 dark:bg-slate-100 border-slate-900 dark:border-slate-100 text-white dark:text-slate-900 shadow-md scale-105"
+                  : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               {cat}
@@ -76,38 +87,78 @@ export default function FAQ() {
         </div>
 
         <div className="space-y-4">
-          {filtered.map((faq, idx) => (
-            <div
-              key={idx}
-              className="bg-canvas border border-border-subtle rounded-2xl overflow-hidden transition-all hover:border-primary-light/50 shadow-sm hover:shadow-md"
-            >
-              <button
-                onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
-              >
-                <span
-                  className={`text-sm font-black tracking-wide pr-4 transition-colors ${openIdx === idx ? "text-info" : "text-primary"}`}
-                >
-                  {faq.question}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 shrink-0 text-primary-light transition-transform duration-300 ${openIdx === idx ? "rotate-180 text-info" : ""}`}
-                />
-              </button>
+          {filteredFaqs.length > 0 ? (
+            filteredFaqs.map((faq, idx) => {
+              const isOpen = openIdx === idx;
+              const buttonId = `${baseId}-btn-${idx}`;
+              const panelId = `${baseId}-panel-${idx}`;
 
-              <div
-                style={{
-                  maxHeight: openIdx === idx ? "300px" : "0px",
-                  opacity: openIdx === idx ? 1 : 0,
-                }}
-                className="transition-all duration-300 ease-in-out"
-              >
-                <div className="px-6 pb-6 pt-2 text-sm text-primary-light font-medium leading-relaxed border-t border-border-subtle mx-6 mt-1">
-                  {faq.answer}
+              return (
+                <div
+                  key={idx}
+                  className="group bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:border-blue-300 dark:hover:border-blue-700/50 shadow-sm hover:shadow-md animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both"
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  <button
+                    id={buttonId}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenIdx(isOpen ? null : idx)}
+                    className="w-full flex items-center justify-between p-6 text-left focus-visible:outline-none focus-visible:bg-slate-100 dark:focus-visible:bg-slate-800"
+                  >
+                    <span
+                      className={`text-sm font-black tracking-wide pr-4 transition-colors ${
+                        isOpen
+                          ? "text-blue-600 dark:text-blue-400"
+                          : "text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      }`}
+                    >
+                      {faq.question}
+                    </span>
+                    <ChevronDown
+                      className={`w-5 h-5 shrink-0 transition-transform duration-300 ease-in-out ${
+                        isOpen
+                          ? "rotate-180 text-blue-600 dark:text-blue-400"
+                          : "text-slate-400 group-hover:text-blue-500"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </button>
+
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    className={`grid transition-all duration-300 ease-in-out ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="px-6 pb-6 pt-2 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-200 dark:border-slate-700/50 mx-6 mt-1">
+                        {faq.answer}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              );
+            })
+          ) : (
+            <div className="text-center py-16 px-6 bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 rounded-2xl border-dashed animate-in fade-in duration-500">
+              <SearchX
+                className="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto mb-4"
+                aria-hidden="true"
+              />
+              <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 tracking-tight">
+                No results found
+              </h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                We couldn't find any FAQs matching "{search}" in the {activeCat}{" "}
+                category.
+              </p>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </section>
