@@ -1,3 +1,8 @@
+import rajesh from "../assets/rajesh.jpeg";
+import apurba from "../assets/apurba.jpeg";
+import nikita from "../assets/nikita.jpeg";
+import sashanka from "../assets/sashanka.jpeg";
+
 export const lastUpdated = "2026-05-25";
 
 export interface SiteConfig {
@@ -92,7 +97,8 @@ export interface FacultyMember {
   experience: string;
   bio: string;
   initials: string;
-  avatarBg: string;
+  avatarBg?: string;
+  image?: string;
 }
 
 export interface Testimonial {
@@ -147,9 +153,9 @@ export const siteData: SiteData = {
     tagline: "Foundation for Life",
     description:
       "Agartala's premier educational ecosystem delivering elite academic coaching and competitive administrative preparation frameworks.",
-    phone: "+91 98765 43210",
-    whatsapp: "919876543210",
-    email: "admissions@mrdinstitution.com",
+    phone: "+917085792233",
+    whatsapp: "917085792233",
+    email: "mrdinstitutions@gmail.com",
     address: "Hari Ganga Basak Road, Near City Centre",
     city: "Agartala",
     state: "Tripura",
@@ -159,7 +165,11 @@ export const siteData: SiteData = {
     foundedYear: 2018,
     socialLinks: [
       { platform: "Instagram", url: "#", icon: "Instagram" },
-      { platform: "Facebook", url: "#", icon: "Facebook" },
+      {
+        platform: "Facebook",
+        url: "https://www.facebook.com/people/MRD-Institutions/61577661725580/#",
+        icon: "Facebook",
+      },
       { platform: "YouTube", url: "#", icon: "Youtube" },
     ],
   },
@@ -498,42 +508,47 @@ export const siteData: SiteData = {
   faculty: [
     {
       name: "Rajesh Das",
-      title: "Founder & Principal Academic Director",
+      title: "Founder, CEO & Educator",
       credentials: [
-        "UPSC Civil Services Prelims Qualifier",
-        "M.Sc Mathematics",
+        "MA in English",
+        "B.Ed & B.P.Ed",
+        "3x UPSC Prelims, 2x Mains, 1x Interview",
+      ],
+      experience: "5+ Years Experience",
+      bio: "Architect of the MRD institutional framework. Specializes in mapping high-level administrative competitive patterns down to foundational curricula.",
+      initials: "RD",
+      image: rajesh,
+    },
+    {
+      name: "Apurba Datta",
+      title: "Educator & Psychology Expert",
+      credentials: [
+        "M.A Clinical Psychology",
+        "B.Sc Psychology Honors",
         "B.Ed",
       ],
-      experience: "12+ Years Experience",
-      bio: "Architect of the MRD institutional framework. Specializes in mapping high-level administrative competitive patterns down to foundational school curricula, eliminating rote memorization.",
-      initials: "RD",
-      avatarBg: "bg-surface",
+      experience: "Subject Expert",
+      bio: "Drives the foundational and specialized frameworks for behavioral sciences, integrating clinical insights with academic excellence.",
+      initials: "AD",
+      image: apurba,
     },
     {
-      name: "Dr. Ananya Sen",
-      title: "Head of Sciences",
-      credentials: [
-        "Ph.D. in Organic Chemistry",
-        "M.Sc Chemistry",
-        "CSIR-NET Qualified",
-      ],
-      experience: "10+ Years Experience",
-      bio: "Leads the PCB and PCM streams with a focus on practical application and competitive entrance test strategies. Renowned for simplifying complex organic reaction mechanisms.",
-      initials: "AS",
-      avatarBg: "bg-surface",
+      name: "Nikita Debnath",
+      title: "Educator & Biology Lead",
+      credentials: ["B.Sc Human Physiology (Gold Medalist)", "B.Ed"],
+      experience: "Subject Expert",
+      bio: "Brings gold-standard expertise in biological sciences, specializing in simplifying complex physiological mechanisms for competitive exams.",
+      initials: "ND",
+      image: nikita,
     },
     {
-      name: "Vikram Debnath",
-      title: "Humanities & Social Sciences Lead",
-      credentials: [
-        "M.A. Political Science",
-        "M.A. History",
-        "UPSC Mains Appeared",
-      ],
-      experience: "7+ Years Experience",
-      bio: "Drives the foundational Social Science modules for middle school and the specialized Humanities tracks for senior secondary, heavily integrating real-world current affairs.",
-      initials: "VD",
-      avatarBg: "bg-surface",
+      name: "Sashanka Banik",
+      title: "Educator & Physics Expert",
+      credentials: ["B.Sc Physics", "B.Ed", "CTET & T-TET Qualified"],
+      experience: "5+ Years Experience",
+      bio: "A highly qualified physics expert dedicated to breaking down mechanics and electromagnetism into intuitive, scorable concepts.",
+      initials: "SB",
+      image: sashanka,
     },
   ],
 

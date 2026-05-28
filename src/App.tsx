@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
@@ -25,9 +25,21 @@ function HomePage() {
         <FAQ />
       </main>
       <Footer />
-      <WhatsAppCTA />
     </>
   );
+}
+
+function GlobalWhatsApp() {
+  const location = useLocation();
+
+  const getMessage = () => {
+    if (location.pathname === "/school-boards") {
+      return "Hi! I was looking at the School Boards Curriculum page and I'd like to get more details about the CBSE/TBSE batches and fee structure.";
+    }
+    return "Hello! I'd like to know more about the admissions process.";
+  };
+
+  return <WhatsAppCTA defaultMessage={getMessage()} />;
 }
 
 export default function App() {
@@ -38,6 +50,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/school-boards" element={<SchoolBoards />} />
         </Routes>
+
+        <GlobalWhatsApp />
       </div>
     </BrowserRouter>
   );
