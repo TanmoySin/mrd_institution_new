@@ -35,7 +35,7 @@ export default function Faculty(): JSX.Element {
             >
               {/* Profile Header */}
               <div className="flex flex-col gap-5 mb-6">
-                <div className="w-20 h-20 shrink-0 rounded-2xl overflow-hidden shadow-inner group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-500 ease-out flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 border border-slate-100">
+                <div className="w-20 h-20 shrink-0 rounded-full overflow-hidden shadow-inner group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-500 ease-out flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 border border-slate-100">
                   {teacher.image ? (
                     <img
                       src={teacher.image}

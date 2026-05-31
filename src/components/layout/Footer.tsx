@@ -133,7 +133,7 @@ export default function Footer(): JSX.Element {
           </address>
 
           <a
-            href={siteData.siteConfig.mapEmbedUrl}
+            href={siteData.siteConfig.mapShareUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors mt-2 w-fit focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30 rounded-md px-1 -ml-1"

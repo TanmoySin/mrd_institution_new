@@ -1,7 +1,7 @@
-import rajesh from "../assets/rajesh.jpeg";
-import apurba from "../assets/apurba.jpeg";
-import nikita from "../assets/nikita.jpeg";
-import sashanka from "../assets/sashanka.jpeg";
+import rajesh from "../assets/rajesh.png";
+import apurba from "../assets/apurba.png";
+import nikita from "../assets/nikita.png";
+import sashanka from "../assets/sashanka.png";
 
 export const lastUpdated = "2026-05-25";
 
@@ -16,7 +16,8 @@ export interface SiteConfig {
   city: string;
   state: string;
   pincode: string;
-  mapEmbedUrl: string;
+  // mapEmbedUrl: string;
+  mapShareUrl: string;
   foundedYear: number;
   socialLinks: { platform: string; url: string; icon: string }[];
 }
@@ -149,7 +150,7 @@ export interface SiteData {
 
 export const siteData: SiteData = {
   siteConfig: {
-    name: "MRD Institution",
+    name: "MRD Institutions",
     tagline: "Foundation for Life",
     description:
       "Agartala's premier educational ecosystem delivering elite academic coaching and competitive administrative preparation frameworks.",
@@ -160,8 +161,8 @@ export const siteData: SiteData = {
     city: "Agartala",
     state: "Tripura",
     pincode: "799001",
-    mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116707.03823485089!2d91.20912163155708!3d23.831238466633658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3753f412c14041a9%3A0x6b4fb6c17208d1f!2sAgartala%2C%20Tripura!5e0!3m2!1sen!2sin!4v1716212456789!5m2!1sen!2sin",
+    // mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d14600.283828768488!2d91.2785408!3d23.8160757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2sin!4v1780214371292!5m2!1sen!2sin",
+    mapShareUrl: "https://maps.app.goo.gl/Bnt1DVBxC3swFgbY7",
     foundedYear: 2018,
     socialLinks: [
       { platform: "Instagram", url: "#", icon: "Instagram" },
@@ -596,7 +597,7 @@ export const siteData: SiteData = {
 
   faqs: [
     {
-      question: "Where is MRD Institution located?",
+      question: "Where is MRD Institutions located?",
       answer:
         "Our centralized, fully air-conditioned campus is located at Hari Ganga Basak Road, Near City Centre, Agartala, Tripura.",
       category: "Infrastructure",
